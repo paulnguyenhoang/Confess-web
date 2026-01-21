@@ -2,11 +2,12 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: "/Confess-web/", // ⚠️ Đổi "Love-web" thành tên repository của bạn
+  // Dùng "/" cho dev, "/Confess-web/" cho production
+  base: command === "serve" ? "/" : "/Confess-web/",
   server: {
     port: 3000,
     open: true,
   },
-});
+}));
