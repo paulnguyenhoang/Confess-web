@@ -1,10 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import { AppShell } from "./components/AppShell";
 import { ConfessPage } from "./pages/ConfessPage";
 import { CelebrationPage } from "./pages/CelebrationPage";
 
-// Router configuration
-const router = createBrowserRouter([
+// Router configuration - Hash Router for GitHub Pages
+const router = createHashRouter([
   {
     path: "/",
     element: (
