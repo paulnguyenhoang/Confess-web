@@ -1,0 +1,196 @@
+:root {
+  /* Gradient colors - dễ chỉnh sửa */
+  --gradient-from: #fce7f3; /* pink-100 */
+  --gradient-via: #e9d5ff; /* purple-200 */
+  --gradient-to: #ddd6fe; /* violet-200 */
+
+  /* Card styles */
+  --card-blur: 40px;
+  --card-shadow: 0 8px 32px 0 rgba(236, 72, 153, 0.15);
+  --card-glow: 0 0 40px rgba(236, 72, 153, 0.2);
+
+  /* Animation timing */
+  --duration-slow: 3s;
+  --duration-normal: 0.3s;
+  --duration-fast: 0.15s;
+}
+
+/* Background gradient */
+.app-background {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-from) 0%,
+    var(--gradient-via) 50%,
+    var(--gradient-to) 100%
+  );
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height cho mobile */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Radial gradient for glow */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Glass card effect */
+.glass-card {
+  backdrop-filter: blur(var(--card-blur));
+  -webkit-backdrop-filter: blur(var(--card-blur));
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--card-shadow);
+  border-radius: 24px;
+}
+
+.glass-card:hover {
+  box-shadow: var(--card-glow);
+}
+
+/* Button glow effect */
+.btn-glow {
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.3);
+  transition: all var(--duration-normal) ease;
+}
+
+.btn-glow:hover {
+  box-shadow: 0 6px 30px rgba(236, 72, 153, 0.5);
+}
+
+/* =========================================================
+   Floating hearts (FIX lag/giật):
+   - Outer chỉ rơi theo Y: 0% -> 100% (linear, đều)
+   - Inner lắc ngang (sway) riêng: nhẹ và mượt
+   - translate3d + will-change để giảm jank
+   ========================================================= */
+@keyframes heart-fall {
+  from {
+    transform: translate3d(0, -15vh, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.75;
+  }
+  90% {
+    opacity: 0.75;
+  }
+  to {
+    transform: translate3d(0, 115vh, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes heart-sway {
+  0%,
+  100% {
+    transform: translate3d(-12px, 0, 0);
+  }
+  50% {
+    transform: translate3d(12px, 0, 0);
+  }
+}
+
+.heart-float {
+  /* các biến này set từ TSX */
+  left: var(--x, 50%);
+  top: 0;
+
+  animation-name: heart-fall;
+  animation-duration: var(--d, 22s);
+  animation-delay: var(--delay, 0s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  will-change: transform, opacity;
+  transform: translate3d(0, -15vh, 0);
+
+  pointer-events: none;
+  /* FIX: đừng dùng paint containment vì nó sẽ CLIP tim khi sway */
+  /* contain: layout paint;  <-- REMOVE */
+  contain: layout; /* optional: giữ layout containment nhẹ */
+  overflow: visible; /* đảm bảo con bên trong không bị cắt */
+}
+
+.heart-float > .heart-inner {
+  animation: heart-sway var(--sway, 3.4s) ease-in-out infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Custom spacing - Điều chỉnh khoảng cách phụ đề và icon */
+.confess-subtitle-spacing {
+  margin-bottom: -20px; /* Kéo icon lên gần subtitle hơn */
+}
+
+@media (min-width: 640px) {
+  .confess-subtitle-spacing {
+    margin-bottom: -30px; /* Tablet: kéo gần hơn nữa */
+  }
+}
+
+@media (min-width: 1024px) {
+  .confess-subtitle-spacing {
+    margin-bottom: -40px; /* Desktop: kéo gần nhất */
+  }
+}
+
+/* Sparkle animation */
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sparkle {
+  animation: sparkle var(--duration-slow) ease-in-out infinite;
+}
+
+/* Typewriter caret */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.typewriter-caret {
+  animation: blink 1s step-end infinite;
+}
+
+/* Polaroid tilt */
+.polaroid {
+  transition: transform var(--duration-normal) ease;
+}
+
+.polaroid:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+}
+
+/* Reduce motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .heart-float,
+  .sparkle,
+  .heart-float > .heart-inner {
+    animation: none !important;
+    opacity: 0.3;
+  }
+}
