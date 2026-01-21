@@ -15,7 +15,7 @@ export const LoveCard = ({ children, className = "" }: LoveCardProps) => {
 
   return (
     <motion.div
-      className={`glass-card p-6 sm:p-8 w-[min(92vw,520px)] sm:w-[min(86vw,600px)] lg:w-[min(760px,70vw)] mx-auto ${className}`}
+      className={`glass-card p-4 landscape:p-3 sm:p-6 lg:p-8 w-[min(98vw,520px)] landscape:w-[98vw] sm:w-[min(86vw,600px)] lg:w-[min(760px,70vw)] mx-auto ${className}`}
       initial="initial"
       animate="animate"
       exit="exit"
