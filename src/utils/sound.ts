@@ -8,8 +8,10 @@ class SoundManager {
   private isBlocked = false;
 
   constructor() {
-    // Khởi tạo audio element
-    this.audio = new Audio("/music/music.mp3");
+    // Khởi tạo audio element với base URL để hoạt động trên GitHub Pages
+    // @ts-ignore - Vite's import.meta.env
+    const baseUrl = import.meta.env?.BASE_URL || "/";
+    this.audio = new Audio(`${baseUrl}music/music.mp3`);
     this.audio.loop = true;
     this.audio.volume = 0.3;
 
