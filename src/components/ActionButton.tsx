@@ -23,7 +23,7 @@ export const ActionButton = ({
   const variants = createMotionVariants(reduceMotion);
 
   const baseClasses =
-    "px-6 landscape:px-4 sm:px-8 py-3 landscape:py-2 sm:py-4 h-12 landscape:h-10 sm:h-14 lg:h-16 min-w-[140px] landscape:min-w-[110px] sm:min-w-[180px] rounded-full font-semibold text-base landscape:text-sm sm:text-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "px-8 py-4 h-14 sm:h-16 min-w-[180px] sm:min-w-[200px] rounded-full font-semibold text-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2";
 
   const variantClasses = {
     primary: "bg-pink-500 text-white hover:bg-pink-600 focus:ring-pink-400 btn-glow",
